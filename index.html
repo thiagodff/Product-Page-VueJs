@@ -17,7 +17,7 @@
         </div>
 
         <div class="product-info">
-          <h1>{{ product }}</h1>
+          <h1>{{ title }}</h1>
 
           <p v-show="onSale">On sale!</p>
 
@@ -34,11 +34,11 @@
           </ul>
 
           <div
-            v-for="variant in variants"
+            v-for="(variant, index) in variants"
             :key="variant.variantId"
             class="color-box"
             :style="{ backgroundColor: variant.variantColor}"
-            @mouseover="updateProduct(variant.variantImage)"
+            @mouseover="updateProduct(index)"
           ></div>
 
           <button
