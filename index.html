@@ -11,7 +11,16 @@
     <div class="nav-bar"></div>
 
     <div id="app">
-      <product :premium="premium"></product>
+      <div class="cart">
+        <p>Cart [{{ cart.length }}]</p>
+      </div>
+
+      <product
+        :premium="premium"
+        :cart="cart"
+        @add-to-cart="addToCart"
+        @remove-to-cart="removeToCart"
+      ></product>
 
       <a :href="vuemastery" target="_blank">Se tee course here</a>
     </div>

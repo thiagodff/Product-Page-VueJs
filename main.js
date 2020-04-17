@@ -18,6 +18,10 @@ Vue.component('product', {
       type: Boolean,
       required: true,
     },
+    cart: {
+      type: Array,
+      required: true,
+    },
   },
   template: `
     <div class="product">
@@ -52,8 +56,8 @@ Vue.component('product', {
 
         <button
           v-on:click="addToCart"
-          :disabled="inventory==cart"
-          :class="{ disabledButton: inventory==cart }"
+          :disabled="inventory==cart.length"
+          :class="{ disabledButton: inventory==cart.length }"
         >
           Add to Cart
         </button>
@@ -61,14 +65,10 @@ Vue.component('product', {
         <button
           v-on:click="removeToCart"
           :disabled="inventory==0"
-          :class="{ disabledButton: cart==0 }"
+          :class="{ disabledButton: cart.length==0 }"
         >
           Remove to Cart
         </button>
-
-        <div class="cart">
-          <p>Cart [{{ cart }}]</p>
-        </div>
       </div>
     </div>
   `,
@@ -95,19 +95,21 @@ Vue.component('product', {
         },
       ],
       sizes: ['P', 'M', 'G', 'GG'],
-      cart: 0,
     };
   },
   methods: {
     addToCart() {
-      this.cart += 1;
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
     },
     updateProduct(index) {
       this.selectedVariant = index;
     },
     removeToCart() {
-      if (this.cart > 0) {
-        this.cart -= 1;
+      if (this.cart.length > 0) {
+        this.$emit(
+          'remove-to-cart',
+          this.variants[this.selectedVariant].variantId
+        );
       }
     },
   },
@@ -135,6 +137,18 @@ options = {
   data: {
     vuemastery: 'https://www.vuemastery.com/courses/intro-to-vue-js',
     premium: true,
+    cart: [],
+  },
+  methods: {
+    addToCart(id) {
+      this.cart.push(id);
+    },
+    removeToCart(id) {
+      var pos = this.cart.indexOf(id);
+      if (pos != -1) {
+        var newCart = this.cart.splice(pos, 1);
+      }
+    },
   },
 };
 
