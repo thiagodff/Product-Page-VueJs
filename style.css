@@ -52,7 +52,7 @@ button {
   background-color: #1e95ea;
   color: white;
   height: 40px;
-  width: 100px;
+  min-width: 100px;
   font-size: 14px;
 }
 
