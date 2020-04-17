@@ -5,7 +5,7 @@ options = {
     image: './assets/vmSocks-green-onWhite.jpg',
     vuemastery: 'https://www.vuemastery.com/courses/intro-to-vue-js',
     onSale: true,
-    inventory: 10,
+    inventory: 5,
     details: ['80% cotton', '20% polyester', 'Gender-neutral'],
     variants: [
       {
